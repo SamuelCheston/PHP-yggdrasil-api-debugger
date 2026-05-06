@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRPAuth & Zggdrasil API Debugger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>API Debugger</h1>
+            <p class="subtitle">HRPAuth & Zggdrasil API Testing Tool</p>
+        </header>
+
+        <div class="api-url-section">
+            <label for="api-url">API Base URL:</label>
+            <input type="text" id="api-url" value="https://hrpauth.samuelcheston.com/">
+            <button id="test-connection">Test Connection</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="hrpauth">HRPAuth API</button>
+            <button class="tab-btn" data-tab="zggdrasil">Zggdrasil API</button>
+        </div>
+
+        <div class="tab-content active" id="hrpauth">
+            <div class="api-group">
+                <h2>Authentication</h2>
+                <div class="api-item">
+                    <h3>Login</h3>
+                    <form class="api-form" data-api="login">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Register</h3>
+                    <form class="api-form" data-api="register">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Get User Info</h3>
+                    <form class="api-form" data-api="user">
+                        <div class="form-group">
+                            <label>Remember Token:</label>
+                            <input type="text" name="remember_token" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <h2>Email Verification</h2>
+                <div class="api-item">
+                    <h3>Send Verification Code</h3>
+                    <form class="api-form" data-api="email-verification-send">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Verify Code</h3>
+                    <form class="api-form" data-api="email-verification-verify">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Code:</label>
+                            <input type="text" name="code" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <h2>TOTP</h2>
+                <div class="api-item">
+                    <h3>Setup TOTP</h3>
+                    <form class="api-form" data-api="totp-setup">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Remember Token:</label>
+                            <input type="text" name="remtoken" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Verify TOTP</h3>
+                    <form class="api-form" data-api="totp-verify">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Passcode:</label>
+                            <input type="text" name="passcode" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <h2>Other</h2>
+                <div class="api-item">
+                    <h3>Change Username</h3>
+                    <form class="api-form" data-api="change-username">
+                        <div class="form-group">
+                            <label>Remember Token:</label>
+                            <input type="text" name="remember_token" required>
+                        </div>
+                        <div class="form-group">
+                            <label>New Username:</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Generate Key</h3>
+                    <form class="api-form" data-api="generate-key">
+                        <button type="submit">Generate Key Pair</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Get Status</h3>
+                    <form class="api-form" data-api="status">
+                        <button type="submit">Get Status</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="zggdrasil">
+            <div class="api-group">
+                <h2>Authentication</h2>
+                <div class="api-item">
+                    <h3>Authenticate</h3>
+                    <form class="api-form" data-api="zgg-authenticate">
+                        <div class="form-group">
+                            <label>Username (Email):</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Client Token (Optional):</label>
+                            <input type="text" name="clientToken">
+                        </div>
+                        <div class="form-group">
+                            <label>Request User:</label>
+                            <input type="checkbox" name="requestUser" checked>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Refresh Token</h3>
+                    <form class="api-form" data-api="zgg-refresh">
+                        <div class="form-group">
+                            <label>Access Token:</label>
+                            <input type="text" name="accessToken" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Client Token:</label>
+                            <input type="text" name="clientToken">
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Validate Token</h3>
+                    <form class="api-form" data-api="zgg-validate">
+                        <div class="form-group">
+                            <label>Access Token:</label>
+                            <input type="text" name="accessToken" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Client Token:</label>
+                            <input type="text" name="clientToken">
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Invalidate Token</h3>
+                    <form class="api-form" data-api="zgg-invalidate">
+                        <div class="form-group">
+                            <label>Access Token:</label>
+                            <input type="text" name="accessToken" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Client Token:</label>
+                            <input type="text" name="clientToken">
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Signout</h3>
+                    <form class="api-form" data-api="zgg-signout">
+                        <div class="form-group">
+                            <label>Username (Email):</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <h2>Session</h2>
+                <div class="api-item">
+                    <h3>Join Session</h3>
+                    <form class="api-form" data-api="zgg-join">
+                        <div class="form-group">
+                            <label>Access Token:</label>
+                            <input type="text" name="accessToken" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Selected Profile (UUID):</label>
+                            <input type="text" name="selectedProfile" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Server ID:</label>
+                            <input type="text" name="serverId" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Has Joined</h3>
+                    <form class="api-form" data-api="zgg-hasJoined">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Server ID:</label>
+                            <input type="text" name="serverId" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Get Profile</h3>
+                    <form class="api-form" data-api="zgg-profile">
+                        <div class="form-group">
+                            <label>Profile UUID:</label>
+                            <input type="text" name="uuid" required>
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <h2>Metadata</h2>
+                <div class="api-item">
+                    <h3>Get Metadata</h3>
+                    <form class="api-form" data-api="zgg-meta">
+                        <button type="submit">Get Metadata</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <h2>Texture (Skin/Cape)</h2>
+                <div class="api-item">
+                    <h3>Upload Texture</h3>
+                    <form class="api-form" data-api="zgg-upload-texture" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Profile UUID:</label>
+                            <input type="text" name="uuid" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Texture Type:</label>
+                            <select name="textureType" required>
+                                <option value="skin">Skin</option>
+                                <option value="cape">Cape</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Access Token:</label>
+                            <input type="text" name="accessToken" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Model (only for skin):</label>
+                            <select name="model">
+                                <option value="default">Default</option>
+                                <option value="slim">Slim</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>PNG File:</label>
+                            <input type="file" name="file" accept="image/png" required>
+                        </div>
+                        <button type="submit">Upload Texture</button>
+                    </form>
+                </div>
+                <div class="api-item">
+                    <h3>Delete Texture</h3>
+                    <form class="api-form" data-api="zgg-delete-texture">
+                        <div class="form-group">
+                            <label>Profile UUID:</label>
+                            <input type="text" name="uuid" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Texture Type:</label>
+                            <select name="textureType" required>
+                                <option value="skin">Skin</option>
+                                <option value="cape">Cape</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Access Token:</label>
+                            <input type="text" name="accessToken" required>
+                        </div>
+                        <button type="submit">Delete Texture</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="response-section">
+            <h2>Response</h2>
+            <div class="response-tabs">
+                <button class="response-tab active" data-response-tab="json">JSON</button>
+                <button class="response-tab" data-response-tab="raw">Raw</button>
+            </div>
+            <div class="response-content">
+                <pre id="json-response"></pre>
+                <pre id="raw-response"></pre>
+            </div>
+            <div class="response-info">
+                <span id="response-time">0ms</span>
+                <span id="response-status" class="status-pending">Pending</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
